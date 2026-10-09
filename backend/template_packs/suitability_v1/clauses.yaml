@@ -1,0 +1,66 @@
+# Approved wording library entries used by this pack. Illustrative text only.
+clauses:
+  - id: intro_purpose
+    version: 1.2.0
+    owner: Compliance
+    approved_by: carol
+    approved_on: 2026-09-01
+    effective_from: 2026-09-15
+    text: >-
+      Dear {{ client.name }}, this report sets out our recommendation following our recent discussions
+      and the information you provided. Please read it carefully and contact us if anything is unclear
+      or does not reflect your circumstances.
+
+  - id: intro_scope
+    version: 1.0.0
+    owner: Compliance
+    approved_by: carol
+    approved_on: 2026-09-01
+    effective_from: 2026-09-15
+    text: >-
+      Our advice is limited to the pension arrangement described in this report. We have not
+      considered other pensions, investments or protection needs unless stated.
+
+  - id: atr_explainer
+    version: 1.1.0
+    owner: Investment Committee
+    approved_by: carol
+    approved_on: 2026-09-01
+    effective_from: 2026-09-15
+    text: >-
+      Your attitude to risk describes how much investment risk you are willing to take. Your capacity
+      for loss describes how much of a fall in value you could withstand without a material effect on
+      your standard of living. We assessed both with you using our risk questionnaire and discussion.
+
+  - id: safeguarded_warning
+    version: 1.0.0
+    owner: Compliance
+    approved_by: carol
+    approved_on: 2026-09-01
+    effective_from: 2026-09-15
+    text: >-
+      Your existing pension includes safeguarded benefits. Giving these up is usually not in your best
+      interests. Specialist advice and additional checks apply before any transfer can proceed.
+
+  - id: risk_warnings
+    version: 2.0.0
+    owner: Compliance
+    approved_by: carol
+    approved_on: 2026-09-01
+    effective_from: 2026-09-15
+    text: >-
+      The value of investments and the income from them can fall as well as rise, and you may get back
+      less than you invest. Past performance is not a reliable indicator of future results.
+
+      Charges reduce the value of your pension. Tax treatment depends on your individual circumstances
+      and may change in the future.
+
+  - id: next_steps
+    version: 1.0.0
+    owner: Compliance
+    approved_by: carol
+    approved_on: 2026-09-01
+    effective_from: 2026-09-15
+    text: >-
+      If you would like to proceed, please sign and return the declaration enclosed with this report.
+      You have the right to cancel within the cancellation period set out in the product documents.

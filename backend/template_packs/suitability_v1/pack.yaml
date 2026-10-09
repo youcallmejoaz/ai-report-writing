@@ -1,0 +1,106 @@
+# Example template pack. Illustrative wording only: real packs are authored by the firm's
+# Template Administrators and approved by Compliance through the registry lifecycle.
+id: pension_consolidation_suitability
+version: 1.0.0
+name: Pension Consolidation Suitability Report
+description: Suitability report for consolidating a single defined contribution pension.
+
+rules:
+  entailment_check: true
+  prohibited_phrases:
+    - guaranteed
+    - guarantee
+    - risk-free
+    - risk free
+    - no risk
+    - cannot lose
+    - will definitely
+    - certain to
+
+sections:
+  - id: introduction
+    heading: Introduction
+    blocks:
+      - {kind: clause, clause: intro_purpose}
+      - {kind: clause, clause: intro_scope}
+
+  - id: about_you
+    heading: About you
+    blocks:
+      - kind: facts_table
+        rows: [client.name, client.date_of_birth, client.employment_status, client.annual_income]
+      - kind: ai
+        slot: circumstances_summary
+        instruction: >
+          Summarise the client's current circumstances relevant to this advice in two or three sentences,
+          using only the facts provided. Do not mention their date of birth or income figures; these
+          are shown in the table above.
+        allowed_facts: [client.employment_status, client.retirement_age_target, client.vulnerability_flag]
+        required_facts: [client.employment_status]
+        max_words: 80
+
+  - id: objectives
+    heading: Your objectives
+    blocks:
+      - kind: ai
+        slot: objectives_summary
+        instruction: >
+          Restate the client's objectives in plain English, in the client's own terms where possible,
+          and the age at which they intend to retire. Do not add objectives that are not in the facts.
+        allowed_facts: [client.objectives, client.retirement_age_target]
+        required_facts: [client.objectives, client.retirement_age_target]
+        max_words: 120
+
+  - id: risk
+    heading: Your attitude to risk and capacity for loss
+    blocks:
+      - {kind: clause, clause: atr_explainer}
+      - kind: facts_table
+        rows: [client.attitude_to_risk, client.capacity_for_loss]
+      - kind: ai
+        slot: risk_summary
+        instruction: >
+          Explain in two sentences what the client's recorded attitude to risk and capacity for loss
+          mean for them. Do not introduce any risk scale or category that is not in the facts.
+        allowed_facts: [client.attitude_to_risk, client.capacity_for_loss]
+        required_facts: [client.attitude_to_risk, client.capacity_for_loss]
+        max_words: 90
+
+  - id: existing_pension
+    heading: Your existing pension
+    blocks:
+      - kind: facts_table
+        rows: [pension.provider, pension.policy_number, pension.plan_type, pension.fund_value,
+               pension.valuation_date, pension.annual_charge_pct]
+
+  - id: safeguarded
+    heading: Safeguarded benefits
+    when: {fact: pension.has_safeguarded_benefits, equals: true}
+    blocks:
+      - {kind: clause, clause: safeguarded_warning}
+
+  - id: recommendation
+    heading: Our recommendation
+    blocks:
+      - kind: ai
+        slot: recommendation_explanation
+        instruction: >
+          Explain the adviser's recommendation and the adviser's reasons, linking each reason to the
+          client's stated objectives where the facts support it. Compare the recommended charge with the
+          existing charge only using the figures provided. Do not add reasons, products or benefits that
+          are not in the facts, and do not make predictions about investment returns.
+        allowed_facts: [adviser.recommendation, adviser.reasons, adviser.recommended_charge_pct,
+                        pension.annual_charge_pct, pension.fund_value, client.objectives,
+                        client.retirement_age_target]
+        required_facts: [adviser.recommendation, adviser.reasons]
+        max_words: 220
+
+  - id: risks
+    heading: Risks you should be aware of
+    blocks:
+      - {kind: clause, clause: risk_warnings}
+
+  - id: next_steps
+    heading: Next steps
+    blocks:
+      - {kind: clause, clause: next_steps}

@@ -1,0 +1,6 @@
+- Write for the client, in the second person ("you", "your"). Refer to the firm as "we".
+- Plain English: short sentences, everyday words, no jargon without a brief explanation.
+- Neutral and balanced: never overstate benefits; never describe outcomes as certain.
+- Use figures exactly as they appear in the facts' display values (for example £125,400.00, 0.75%).
+- Do not repeat information already shown in tables unless the instruction asks you to.
+- UK spelling and conventions.

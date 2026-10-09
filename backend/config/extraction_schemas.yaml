@@ -1,0 +1,34 @@
+# Document types and the fields extracted from each.
+# classify_keywords: deterministic first-pass classification (model used only when no rule matches).
+# labels: how the field typically appears in this document type; given to the extraction model as hints
+#         and used by the deterministic label-matching extractor.
+document_types:
+  fact_find:
+    description: "Client fact-find completed by or with the adviser"
+    classify_keywords: ["fact find", "fact-find", "client questionnaire"]
+    fields:
+      client.name:                 {labels: ["Client name", "Full name", "Name"]}
+      client.date_of_birth:        {labels: ["Date of birth", "DOB"]}
+      client.employment_status:    {labels: ["Employment status", "Occupation status"]}
+      client.annual_income:        {labels: ["Annual gross income", "Gross salary", "Annual income"]}
+      client.objectives:           {labels: ["Objectives", "Client objectives", "Goals"]}
+      client.retirement_age_target: {labels: ["Target retirement age", "Intended retirement age"]}
+      client.attitude_to_risk:     {labels: ["Attitude to risk", "Risk profile", "ATR"]}
+      client.capacity_for_loss:    {labels: ["Capacity for loss"]}
+      client.vulnerability_flag:   {labels: ["Vulnerability identified", "Vulnerable client"]}
+      pension.provider:            {labels: ["Existing pension provider", "Pension provider"]}
+      pension.fund_value:          {labels: ["Existing pension value", "Current pension value"]}
+  pension_statement:
+    description: "Annual or ad-hoc statement from a pension provider"
+    classify_keywords: ["pension statement", "annual statement", "statement of benefits"]
+    fields:
+      client.name:                 {labels: ["Member name", "Policyholder"]}
+      client.date_of_birth:        {labels: ["Date of birth"]}
+      pension.provider:            {labels: ["Provider"]}
+      pension.policy_number:       {labels: ["Policy number", "Plan number", "Membership number"]}
+      pension.plan_type:           {labels: ["Plan type", "Product"]}
+      pension.fund_value:          {labels: ["Total fund value", "Fund value", "Current value"]}
+      pension.valuation_date:      {labels: ["Valuation date", "Statement date", "Value as at"]}
+      pension.annual_charge_pct:   {labels: ["Annual management charge", "AMC", "Total annual charge"]}
+      pension.selected_retirement_age: {labels: ["Selected retirement age", "Normal retirement age"]}
+      pension.has_safeguarded_benefits: {labels: ["Guaranteed benefits", "Safeguarded benefits"]}

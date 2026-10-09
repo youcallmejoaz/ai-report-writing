@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+backend/outputs/
+
+# Node
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Infra
+infra/**/*.json
+
+# Never commit real client data or secrets
+*.env
+.env*
+samples-real/

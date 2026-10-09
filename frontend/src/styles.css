@@ -1,0 +1,36 @@
+:root {
+  --bg: #f7f8fa; --fg: #1d2330; --muted: #5b6475; --line: #d9dde5; --panel: #ffffff;
+  --accent: #1f3a5f; --ai: #5b2c83; --ok: #1d7a46; --warn: #a56a00; --bad: #b00020;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--fg); background: var(--bg);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14171d; --fg: #e6e9ef; --muted: #9aa3b2; --line: #2c323d; --panel: #1b1f27;
+          --accent: #8fb3e0; --ai: #c7a2ef; --ok: #6fcf97; --warn: #f2c94c; --bad: #ff6b81; }
+}
+body { margin: 0; }
+header { display: flex; gap: 1rem; align-items: center; padding: .6rem 1rem; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+header nav { display: flex; gap: .5rem; }
+.dev-user { margin-left: auto; color: var(--muted); font-size: .85rem; }
+main { padding: 1rem; max-width: 1200px; margin: 0 auto; }
+table { width: 100%; border-collapse: collapse; background: var(--panel); }
+th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr.selected, .statement.selected { outline: 2px solid var(--accent); }
+.split { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1rem; margin-top: 1rem; }
+@media (max-width: 800px) { .split { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .75rem 1rem; margin: .75rem 0; }
+.panel.conflict { border-left: 4px solid var(--warn); }
+.panel.gap { border-left: 4px solid var(--accent); }
+.findings li.blocking { color: var(--bad); }
+.findings li.warning { color: var(--warn); }
+.statement { color: var(--ai); cursor: pointer; margin: .3rem 0; }
+.statement.insufficient { color: var(--bad); font-weight: 600; }
+.source { font-size: .85rem; margin: .4rem 0; padding: .4rem; border: 1px dashed var(--line); }
+.source-meta { color: var(--muted); margin-bottom: .2rem; }
+.badge { font-size: .7rem; padding: .05rem .4rem; border-radius: 999px; border: 1px solid currentColor; margin-left: .4rem; color: var(--muted); }
+.badge.ai { color: var(--ai); } .badge.ok { color: var(--ok); } .badge.warn { color: var(--warn); }
+.status.verified, .status.corrected, .status.published { color: var(--ok); }
+.status.extracted, .status.in_review { color: var(--warn); }
+.error { color: var(--bad); }
+.toolbar, form { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin: .75rem 0; }
+.meta { color: var(--muted); }
+small { color: var(--muted); }

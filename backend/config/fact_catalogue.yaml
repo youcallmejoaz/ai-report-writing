@@ -1,0 +1,24 @@
+# Canonical fact keys used across extraction schemas and template packs.
+# Maintained by Template Administrators; changes are versioned and approved like template packs.
+# material: true  -> always requires explicit human verification before use in a report.
+facts:
+  client.name:                    {type: text,    label: "Client name",                 material: true}
+  client.date_of_birth:           {type: date,    label: "Date of birth",               material: true}
+  client.employment_status:       {type: text,    label: "Employment status"}
+  client.annual_income:           {type: money,   label: "Annual gross income",         material: true}
+  client.objectives:              {type: text,    label: "Objectives",                  material: true}
+  client.retirement_age_target:   {type: integer, label: "Target retirement age",       material: true}
+  client.attitude_to_risk:        {type: text,    label: "Attitude to risk",            material: true}
+  client.capacity_for_loss:       {type: text,    label: "Capacity for loss",           material: true}
+  client.vulnerability_flag:      {type: boolean, label: "Vulnerability identified",    material: true}
+  pension.provider:               {type: text,    label: "Provider"}
+  pension.policy_number:          {type: text,    label: "Policy number"}
+  pension.plan_type:              {type: text,    label: "Plan type"}
+  pension.fund_value:             {type: money,   label: "Fund value",                  material: true}
+  pension.valuation_date:         {type: date,    label: "Valuation date",              material: true}
+  pension.annual_charge_pct:      {type: percent, label: "Annual management charge",    material: true}
+  pension.selected_retirement_age: {type: integer, label: "Selected retirement age"}
+  pension.has_safeguarded_benefits: {type: boolean, label: "Safeguarded benefits",      material: true}
+  adviser.recommendation:         {type: text,    label: "Recommendation",              material: true, adviser_input: true}
+  adviser.reasons:                {type: text,    label: "Reasons for recommendation",  material: true, adviser_input: true}
+  adviser.recommended_charge_pct: {type: percent, label: "Recommended plan total charge", material: true, adviser_input: true}
