@@ -2,6 +2,23 @@
 
 This repository is a response to a request for proposals from a UK FCA-regulated financial services firm. The firm wants a secure, multi-user application that turns client documents into consistent, grounded, human-approved Word reports.
 
+## See it in action
+
+![Walkthrough: upload, conflict resolution, evidence verification, grounded draft, maker-checker approval](docs/media/walkthrough.gif)
+
+[Full walkthrough video (MP4, 1 min 40 s)](docs/media/walkthrough.mp4)
+
+| | |
+|---|---|
+| ![Conflicting evidence](docs/media/01-case-record-conflict.png) **Conflicting evidence.** Two documents disagree on the fund value. Each candidate shows its source passage, and a person must choose, with a reason. | ![Source evidence](docs/media/02-source-evidence.png) **Every fact is traceable.** Click a fact to see the document, page and passage it came from. |
+| ![Gaps](docs/media/03-gaps-adviser-input.png) **Gaps become tasks.** Information the template needs but no document provides is requested explicitly. Only an adviser can record the recommendation. | ![Report review](docs/media/04-report-review.png) **Grounded draft.** Findings are shown first. Each AI-drafted sentence links to the verified facts and source passages behind it. |
+| ![Approval blocked](docs/media/05-approval-blocked.png) **Maker-checker.** A different person must review every AI-drafted section before approval is allowed. | ![Finalised](docs/media/06-finalised.png) **Finalised.** The approved report is hashed and stored. Review, client and evidence-appendix copies are available. |
+| ![Word review copy](docs/media/08-word-review-copy.png) **Word review copy.** Approved wording (blue, locked) and AI text (purple, with `[Sn]` evidence references) are visibly distinct. | ![Evidence appendix](docs/media/09-word-evidence-appendix.png) **Evidence appendix.** An internal record linking each statement to its facts, who verified them, and the source passages. |
+
+More: [client copy](docs/media/10-word-client-copy.png) · [template registry](docs/media/07-template-registry.png)
+
+All data in the recording is synthetic. The drafted sentences come from the labelled `scripted-demo-drafter` (`APP_DEMO=1`), which is pre-written, evidence-faithful text standing in for Azure OpenAI. Everything else in the recording, including extraction, conflict detection, verification, the workflow and Word assembly, is the real code path. To regenerate the media, see `backend/scripts/record_media.mjs`.
+
 | Path | What it is |
 |---|---|
 | [`docs/proposal.md`](docs/proposal.md) | **The proposal.** It answers RFP items 1–12 and lists the requirements and risks the brief does not mention. [`docs/proposal.docx`](docs/proposal.docx) is a Word export of it. |
@@ -32,11 +49,11 @@ The code shows that the controls described in the proposal are concrete and test
 cd backend
 python -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev]"
-pytest                      # 54 tests
+pytest                      # 56 tests
 python scripts/demo.py      # end-to-end walkthrough; writes outputs/demo_report_{review,client,evidence}.docx
 
 # API + UI (local dev auth via X-Dev-User; users: alice, aaron, bob, carol, dan, erin, sam)
-pip install uvicorn && APP_ENV=local uvicorn app.main:app --port 8000
+pip install uvicorn && APP_ENV=local uvicorn app.main:app --port 8000   # add APP_DEMO=1 for scripted demo drafts
 cd ../frontend && npm install && npm run dev
 ```
 

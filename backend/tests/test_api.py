@@ -34,3 +34,13 @@ def test_audit_verification_requires_auditor():
     assert client.get("/audit/verify", headers=h("alice")).status_code == 403
     r = client.get("/audit/verify", headers=h("erin"))
     assert r.status_code == 200 and r.json()["ok"] is True
+
+
+def test_demo_mode_uses_labelled_scripted_drafter(monkeypatch):
+    from app.main import build_service
+
+    monkeypatch.setenv("APP_ENV", "local")
+    monkeypatch.setenv("APP_DEMO", "1")
+    assert build_service().drafter.name == "scripted-demo-drafter"
+    monkeypatch.delenv("APP_DEMO")
+    assert build_service().drafter.name == "fact-listing-fallback"

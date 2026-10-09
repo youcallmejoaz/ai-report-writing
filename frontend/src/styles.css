@@ -34,3 +34,6 @@ tr.selected, .statement.selected { outline: 2px solid var(--accent); }
 .toolbar, form { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin: .75rem 0; }
 .meta { color: var(--muted); }
 small { color: var(--muted); }
+header { position: sticky; top: 0; z-index: 10; }
+.panel.gap input { min-width: 280px; }
+td button { white-space: nowrap; }

@@ -15,9 +15,10 @@ from pydantic import BaseModel
 
 from app.audit import verify_chain
 from app.auth import DEV_USERS, current_user, require_role
+from app.demo_content import DEMO_DRAFTS
 from app.domain.catalogue import default_catalogue
 from app.domain.schemas import Role, User
-from app.pipeline.draft import DraftingBlocked, FactListingDraftingModel, LLMDraftingModel
+from app.pipeline.draft import DraftingBlocked, FactListingDraftingModel, LLMDraftingModel, ScriptedDraftingModel
 from app.pipeline.extract import LabelMatchingExtractor
 from app.pipeline.ingest import AllowAllScanner
 from app.service import NotFound, ReportService
@@ -36,6 +37,9 @@ def build_service() -> ReportService:
         from app.llm.client import AzureOpenAIClient
 
         drafter = LLMDraftingModel(AzureOpenAIClient.from_env())
+    elif os.environ.get("APP_DEMO") == "1" and os.environ.get("APP_ENV", "local") == "local":
+        # Portfolio/demo recordings: pre-written, evidence-faithful drafts, labelled as such in the UI.
+        drafter = ScriptedDraftingModel(DEMO_DRAFTS, name="scripted-demo-drafter")
     else:
         drafter = FactListingDraftingModel()
     service = ReportService(

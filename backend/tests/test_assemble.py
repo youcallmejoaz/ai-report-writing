@@ -59,3 +59,9 @@ def test_evidence_appendix_links_statements_to_sources(service, users, report):
     text = _text(service.render(users["alice"], report.id, "evidence"))
     assert "pension_statement.txt" in text and "Total fund value: £125,400.00" in text
     assert "Adviser input by aaron" in text
+
+
+def test_documents_are_a4(service, users, report):
+    for variant in ("review", "client", "evidence"):
+        section = docx.Document(io.BytesIO(service.render(users["alice"], report.id, variant))).sections[0]
+        assert (round(section.page_width.cm, 1), round(section.page_height.cm, 1)) == (21.0, 29.7)

@@ -19,7 +19,7 @@ import docx
 from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Pt, RGBColor
+from docx.shared import Cm, Pt, RGBColor
 from docx.text.paragraph import Paragraph
 
 from app.domain.catalogue import Catalogue
@@ -45,6 +45,16 @@ def _ensure_styles(d: docx.document.Document) -> None:
         st = d.styles.add_style(CLAUSE_STYLE, WD_STYLE_TYPE.PARAGRAPH)
         st.base_style = d.styles["Normal"]
         st.font.color.rgb = RGBColor(0x1F, 0x3A, 0x5F)
+
+
+def _new_document() -> docx.document.Document:
+    """Blank document in UK A4 with 2.5 cm margins (python-docx defaults to US Letter)."""
+    d = docx.Document()
+    for section in d.sections:
+        section.page_width, section.page_height = Cm(21.0), Cm(29.7)
+        section.left_margin = section.right_margin = Cm(2.5)
+        section.top_margin = section.bottom_margin = Cm(2.5)
+    return d
 
 
 def _wrap_in_content_control(paragraph: Paragraph, *, tag: str, alias: str, locked: bool) -> None:
@@ -92,7 +102,7 @@ def render_report(
     if mode == "client" and any(s.insufficient_evidence for s in report.statements):
         raise AssemblyError("cannot produce client copy while INSUFFICIENT_EVIDENCE markers remain")
 
-    d = docx.Document(str(layout)) if layout and layout.exists() else docx.Document()
+    d = docx.Document(str(layout)) if layout and layout.exists() else _new_document()
     _ensure_styles(d)
     d.core_properties.title = pack.name
     d.core_properties.comments = (
@@ -171,7 +181,7 @@ def render_evidence_appendix(
     spans: dict[str, SourceSpan],
     documents: dict[str, Document],
 ) -> bytes:
-    d = docx.Document()
+    d = _new_document()
     d.add_heading("Evidence appendix (internal, not for issue)", level=0)
     d.add_paragraph(
         f"Report {report.id}, revision {report.revision}, template {report.template_pack_id}@"
